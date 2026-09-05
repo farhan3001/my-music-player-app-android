@@ -3,6 +3,7 @@ package com.my.music.app.di
 import com.my.music.app.data.MusicRepository
 import com.my.music.app.data.MusicRepositoryImpl
 import com.my.music.app.data.remote.ItunesApi
+import com.my.music.app.config.AppConfig.BASE_URL
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -11,8 +12,6 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
-
-private const val BASE_URL = "https://itunes.apple.com/"
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -9,6 +9,12 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.my.music.app.data.MusicRepository
 import com.my.music.app.model.Music
+import com.my.music.app.config.AppConfig.DEFAULT_SEARCH_TERM
+import com.my.music.app.config.AppConfig.INITIAL_PAGE_SIZE
+import com.my.music.app.config.AppConfig.LOAD_MORE_SIZE
+import com.my.music.app.config.AppConfig.MAX_RESULTS
+import com.my.music.app.config.AppConfig.PROGRESS_UPDATE_INTERVAL_MILLIS
+import com.my.music.app.config.AppConfig.SEARCH_DEBOUNCE_MILLIS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
@@ -20,13 +26,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
-
-private const val SEARCH_DEBOUNCE_MILLIS = 400L
-private const val PROGRESS_UPDATE_INTERVAL_MILLIS = 250L
-private const val DEFAULT_SEARCH_TERM = ""
-private const val INITIAL_PAGE_SIZE = 20
-private const val LOAD_MORE_SIZE = 20
-private const val MAX_RESULTS = 200
 
 @Immutable
 data class MusicUiState(
@@ -282,8 +281,7 @@ class MusicViewModel @Inject constructor(
 
     fun onSongSelected(music: Music) {
 
-        val current =
-            _uiState.value.currentTrack
+        val current = _uiState.value.currentTrack
 
         if (current?.id == music.id) {
             togglePlayPause()
@@ -300,9 +298,7 @@ class MusicViewModel @Inject constructor(
         }
 
         player.setMediaItem(
-            MediaItem.fromUri(
-                music.previewUrl
-            )
+            MediaItem.fromUri(music.previewUrl)
         )
 
         player.prepare()
@@ -345,12 +341,9 @@ class MusicViewModel @Inject constructor(
             return
         }
 
-        val nextIndex =
-            (currentIndex + offset + list.size) % list.size
+        val nextIndex = (currentIndex + offset + list.size) % list.size
 
-        onSongSelected(
-            list[nextIndex]
-        )
+        onSongSelected(list[nextIndex])
     }
 
     fun onSeek(positionMillis: Long) {
@@ -380,9 +373,7 @@ class MusicViewModel @Inject constructor(
                     )
                 }
 
-                delay(
-                    PROGRESS_UPDATE_INTERVAL_MILLIS.milliseconds
-                )
+                delay(PROGRESS_UPDATE_INTERVAL_MILLIS.milliseconds)
             }
         }
     }

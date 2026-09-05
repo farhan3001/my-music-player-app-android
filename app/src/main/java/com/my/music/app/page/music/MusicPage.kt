@@ -30,8 +30,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.my.music.app.page.theme.MusicAppTheme
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.my.music.app.viewModel.MusicViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 

@@ -14,7 +14,7 @@ class MusicRepositoryImpl @Inject constructor(
 ) : MusicRepository {
 
     override suspend fun searchSongs(query: String, limit: Int): List<Music> =
-        dataSource.searchSongs(query, limit).results.mapNotNull { it.toMusic() }
+        dataSource.searchSongsRemote(query, limit).results.mapNotNull { it.toMusic() }
 
     private fun MusicTrack.toMusic(): Music? {
         val id = trackId ?: return null
