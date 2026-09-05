@@ -59,40 +59,6 @@ com.my.music.app
 
 ---
 
-# UI Wireframe
-
-```text
-┌───────────────────────────────┐
-│                               │
-│ ┌───────────────────────────┐ │
-│ │ Search songs...      🔍   │ │
-│ └───────────────────────────┘ │
-│                               │
-│ ┌────┐   Song 1              │
-│ │art │   Artist              │
-│ └────┘                       │
-│                               │
-│ ┌────┐   Song 2              │
-│ │art │   Artist              │
-│ └────┘                       │
-│                               │
-│ ┌────┐   Song 3              │
-│ │art │   Artist              │
-│ └────┘                       │
-│                               │
-├───────────────────────────────┤
-│                               │
-│       ◀     ❚❚     ▶         │
-│                               │
-│ ━━━━━━━━●━━━━━━━━━━━━━━━      │
-│                               │
-└───────────────────────────────┘
-```
-
-The player drawer is hidden initially and becomes visible when a user selects a track.
-
----
-
 # Tech Stack
 
 ## UI
