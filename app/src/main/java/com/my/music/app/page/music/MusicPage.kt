@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.my.music.app.config.AppConfig.MIN_MILLIS_RESTART_MEDIA
 import com.my.music.app.viewModel.MusicViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 
@@ -44,20 +45,15 @@ fun MusicPage(
     LaunchedEffect(listState) {
         snapshotFlow {
             val layoutInfo = listState.layoutInfo
-
-            val lastVisibleItemIndex =
-                layoutInfo.visibleItemsInfo.lastOrNull() ?.index ?: 0
-
-            val totalItemsCount =
-                layoutInfo.totalItemsCount
+            val lastVisibleItemIndex = layoutInfo.visibleItemsInfo.lastOrNull() ?.index ?: 0
+            val totalItemsCount = layoutInfo.totalItemsCount
 
             lastVisibleItemIndex >= totalItemsCount - 3
-        }
-            .distinctUntilChanged().collect { shouldLoadMore ->
-                if (shouldLoadMore) {
-                    viewModel.loadMoreSongs()
-                }
+        }.distinctUntilChanged().collect { shouldLoadMore ->
+            if (shouldLoadMore) {
+                viewModel.loadMoreSongs()
             }
+        }
     }
 
     Scaffold { paddingValues ->
@@ -131,42 +127,32 @@ fun MusicPage(
                     }
 
                     else -> {
-
                         LazyColumn(
                             state = listState,
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(4.dp),
-                            contentPadding = PaddingValues(
-                                bottom = 16.dp
-                            )
+                            contentPadding = PaddingValues(bottom = 16.dp)
                         ) {
 
                             items(
                                 items = uiState.musicList,
                                 key = { it.id }
                             ) { music ->
-
                                 MusicListItem(
                                     music = music,
-                                    isCurrentTrack =
-                                        uiState.currentTrack?.id == music.id,
-                                    onClick =
-                                        viewModel::onSongSelected
+                                    isCurrentTrack = uiState.currentTrack?.id == music.id,
+                                    onClick = viewModel::onSongSelected
                                 )
                             }
 
                             if (uiState.isLoadingMore) {
-
                                 item {
-
                                     Box(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(16.dp),
-                                        contentAlignment =
-                                            Alignment.Center
+                                        contentAlignment = Alignment.Center
                                     ) {
-
                                         CircularProgressIndicator(
                                             color = MaterialTheme.colorScheme.outline
                                         )
@@ -180,16 +166,9 @@ fun MusicPage(
 
             // Player
             AnimatedVisibility(
-                visible =
-                    uiState.isPlayerVisible && uiState.currentTrack != null,
-                enter =
-                    slideInVertically { fullHeight ->
-                        fullHeight
-                    },
-                exit =
-                    slideOutVertically { fullHeight ->
-                        fullHeight
-                    }
+                visible = uiState.isPlayerVisible && uiState.currentTrack != null,
+                enter = slideInVertically { it },
+                exit = slideOutVertically { it }
             ) {
                 val track = uiState.currentTrack
                 if (track != null) {
@@ -197,14 +176,10 @@ fun MusicPage(
                         isPlaying = uiState.isPlaying,
                         positionMillis = uiState.positionMillis,
                         durationMillis = uiState.durationMillis,
-                        onPlayPauseClick =
-                            viewModel::togglePlayPause,
-                        onNextClick =
-                            viewModel::onNextTrack,
-                        onPreviousClick =
-                            viewModel::onPreviousTrack,
-                        onSeek =
-                            viewModel::onSeek
+                        onPlayPauseClick = viewModel::togglePlayPause,
+                        onNextClick = viewModel::onNextTrack,
+                        onPreviousClick = viewModel::onPreviousTrack,
+                        onSeek = viewModel::onSeek
                     )
                 }
             }

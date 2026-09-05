@@ -1,10 +1,7 @@
 package com.my.music.app.di
 
-import com.my.music.app.data.MusicRepository
-import com.my.music.app.data.MusicRepositoryImpl
 import com.my.music.app.data.remote.ItunesApi
 import com.my.music.app.config.AppConfig.BASE_URL
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,13 +26,4 @@ object DataModule {
     @Singleton
     fun provideItunesApi(retrofit: Retrofit): ItunesApi =
         retrofit.create(ItunesApi::class.java)
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-
-    @Binds
-    @Singleton
-    abstract fun bindMusicRepository(impl: MusicRepositoryImpl): MusicRepository
 }

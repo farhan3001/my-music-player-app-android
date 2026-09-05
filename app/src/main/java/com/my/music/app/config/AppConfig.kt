@@ -3,6 +3,7 @@ package com.my.music.app.config
 object AppConfig {
     const val SEARCH_DEBOUNCE_MILLIS = 600L
     const val PROGRESS_UPDATE_INTERVAL_MILLIS = 250L
+    const val MIN_MILLIS_RESTART_MEDIA = 1000L
 
     const val DEFAULT_SEARCH_TERM = ""
 
