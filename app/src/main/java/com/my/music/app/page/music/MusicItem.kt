@@ -53,8 +53,6 @@ fun MusicListItem(
                 .clip(RoundedCornerShape(8.dp))
         )
 
-        Log.d("Artwork", "URL = ${music.artworkUrl}")
-
         Column(
             modifier = Modifier
                 .padding(start = 12.dp)

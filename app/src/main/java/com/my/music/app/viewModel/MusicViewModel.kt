@@ -379,7 +379,6 @@ class MusicViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-
         searchJob?.cancel()
         progressJob?.cancel()
         player.release()
