@@ -1,6 +1,7 @@
 package com.my.music.app.page.music
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
@@ -28,7 +29,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.my.music.app.config.AppConfig.MIN_MILLIS_RESTART_MEDIA
@@ -140,6 +143,7 @@ fun MusicPage(
                             ) { music ->
                                 MusicListItem(
                                     music = music,
+                                    isPlaying = uiState.isPlaying,
                                     isCurrentTrack = uiState.currentTrack?.id == music.id,
                                     onClick = viewModel::onSongSelected
                                 )
@@ -185,4 +189,12 @@ fun MusicPage(
             }
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalComposeUiApi::class)
+@ExperimentalAnimationApi
+@Preview
+fun PreviewHomepage() {
+
 }

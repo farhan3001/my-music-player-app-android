@@ -1,5 +1,6 @@
 package com.my.music.app.page.music
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,9 +26,12 @@ import androidx.compose.material3.SliderState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.my.music.app.model.Music
 import com.my.music.app.page.theme.appColors
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -152,4 +156,21 @@ fun MusicPlayerDrawer(
             )
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalComposeUiApi::class)
+@ExperimentalAnimationApi
+@Preview
+private fun PreviewMusicPlayerDrawer() {
+    MusicPlayerDrawer(
+        isPlaying = true,
+        positionMillis = 1200,
+        durationMillis = 12000,
+        onPlayPauseClick = {},
+        onNextClick = {},
+        onPreviousClick = {},
+        onSeek = {},
+        modifier = Modifier.fillMaxWidth()
+    )
 }
